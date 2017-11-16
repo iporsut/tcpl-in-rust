@@ -1,22 +1,37 @@
 use std::io;
 use std::io::Read;
 
-fn main() {
-    let (bc, tc, nc) = io::stdin()
-        .bytes()
-        .fold((0, 0, 0), |acc, r| {
-            let (bc, tc, nc) = acc;
-            match r {
-                Ok(c)  => match c as char {
-                    ' '  => (bc + 1, tc, nc),
-                    '\t' => (bc, tc + 1, nc),
-                    '\n' => (bc, tc, nc + 1),
-                    _    => acc
-                },
-                _      => acc
+struct Count { b: i32, t: i32, n: i32 }
+impl Count {
+    fn def() -> Count {
+        Count{b: 0, t: 0, n: 0}
+    }
 
-            }
+    fn b_inc(self) -> Count {
+        Count{b: self.b + 1, .. self}
+    }
+
+    fn t_inc(self) -> Count {
+        Count{t: self.t + 1, .. self}
+    }
+
+    fn n_inc(self) -> Count {
+        Count{n: self.n + 1, .. self}
+    }
+}
+
+fn main() {
+    let c = io::stdin()
+        .bytes()
+        .fold(Count::def(), |c, r| match r {
+            Ok(b)  => match b as char {
+                ' '  => c.b_inc(),
+                '\t' => c.t_inc(),
+                '\n' => c.n_inc(),
+                _    => c
+            },
+            _      => c
         });
 
-    println!("{} {} {}", bc, tc, nc);
+    println!("{} {} {}", c.b, c.t, c.n);
 }
