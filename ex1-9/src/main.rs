@@ -13,9 +13,7 @@ fn main() {
             continue
         }
 
-        if let Err(_) = stdout.write(&buf) {
-            return
-        }
+        stdout.write(&buf).unwrap();
 
         if !in_space && buf[0] == b' ' {
             in_space = true;
