@@ -9,25 +9,19 @@ fn main() {
     let mut in_space = false;
     const BLANK: u8 = ' ' as u8;
 
-    loop {
-        if let Ok(1) = stdin.read(&mut buf) {
-            if in_space && buf[0] == BLANK {
-                continue
-            }
-
-            if let Err(_) = stdout.write(&buf) {
-                return
-            }
-
-            if !in_space && buf[0] == BLANK {
-                in_space = true;
-            } else if in_space && buf[0] != BLANK {
-                in_space = false;
-            }
-
+    while let Ok(1) = stdin.read(&mut buf) {
+        if in_space && buf[0] == BLANK {
             continue
         }
 
-        return
+        if let Err(_) = stdout.write(&buf) {
+            return
+        }
+
+        if !in_space && buf[0] == BLANK {
+            in_space = true;
+        } else if in_space && buf[0] != BLANK {
+            in_space = false;
+        }
     }
 }
