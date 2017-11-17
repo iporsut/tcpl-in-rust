@@ -7,26 +7,27 @@ fn main() {
     let mut stdout = io::stdout();
     let mut buf: [u8; 1] = [0; 1];
     let mut in_space = false;
+    const BLANK: u8 = ' ' as u8;
 
     loop {
-        match stdin.read(&mut buf) {
-            Ok(1)  => {
-                if in_space && buf[0] == ' ' as u8 {
-                    continue
-                }
-
-                stdout.write(&buf).unwrap();
-
-                if !in_space && buf[0] == ' ' as u8 {
-                    in_space = true;
-                } else if in_space && buf[0] != ' ' as u8 {
-                    in_space = false;
-                }
-
-            },
-            _ => {
-                return;
+        if let Ok(1) = stdin.read(&mut buf) {
+            if in_space && buf[0] == BLANK {
+                continue
             }
+
+            if let Err(_) = stdout.write(&buf) {
+                return
+            }
+
+            if !in_space && buf[0] == BLANK {
+                in_space = true;
+            } else if in_space && buf[0] != BLANK {
+                in_space = false;
+            }
+
+            continue
         }
+
+        return
     }
 }
