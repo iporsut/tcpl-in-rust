@@ -1,10 +1,10 @@
 fn main() {
-    const LOWER:f64 = 0.0;
-    const UPPER:f64 = 300.0;
-    const STEP:f64  = 20.0;
+    const LOWER: f64 = 0.0;
+    const UPPER: f64 = 300.0;
+    const STEP: f64 = 20.0;
 
     let mut fahr = UPPER;
-    let mut celsius:f64;
+    let mut celsius: f64;
 
     println!("Fahrenheit - Celsius table");
     while fahr >= LOWER {
