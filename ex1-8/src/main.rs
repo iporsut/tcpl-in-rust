@@ -24,10 +24,10 @@ fn main() {
     let c = io::stdin()
         .bytes()
         .fold(Count::def(), |c, r| match r {
-            Ok(b)  => match b as char {
-                ' '  => c.b_inc(),
-                '\t' => c.t_inc(),
-                '\n' => c.n_inc(),
+            Ok(b)  => match b {
+                b' '  => c.b_inc(),
+                b'\t' => c.t_inc(),
+                b'\n' => c.n_inc(),
                 _    => c
             },
             _      => c

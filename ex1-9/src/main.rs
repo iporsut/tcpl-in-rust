@@ -7,10 +7,9 @@ fn main() {
     let mut stdout = io::stdout();
     let mut buf: [u8; 1] = [0; 1];
     let mut in_space = false;
-    const BLANK: u8 = ' ' as u8;
 
     while let Ok(1) = stdin.read(&mut buf) {
-        if in_space && buf[0] == BLANK {
+        if in_space && buf[0] == b' ' {
             continue
         }
 
@@ -18,9 +17,9 @@ fn main() {
             return
         }
 
-        if !in_space && buf[0] == BLANK {
+        if !in_space && buf[0] == b' ' {
             in_space = true;
-        } else if in_space && buf[0] != BLANK {
+        } else if in_space && buf[0] != b' ' {
             in_space = false;
         }
     }
