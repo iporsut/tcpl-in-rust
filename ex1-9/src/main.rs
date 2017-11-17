@@ -3,9 +3,9 @@ use std::io::Read;
 use std::io::Write;
 
 fn main() {
-    let mut stdin = io::stdin();
-    let mut stdout = io::stdout();
-    let mut buf: [u8; 1] = [0; 1];
+    let mut stdin    = io::stdin();
+    let mut stdout   = io::stdout();
+    let mut buf      = [0 as u8];
     let mut in_space = false;
 
     while let Ok(1) = stdin.read(&mut buf) {
